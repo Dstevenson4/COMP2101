@@ -16,4 +16,4 @@ echo "Welcome to planet $hostname, $mytitle $myname!"
 echo "Today is $today."
 
 echo $title
-echo $welcome_message | cowsay -f dragon
+echo $welcome_message | cowsay -f $1
