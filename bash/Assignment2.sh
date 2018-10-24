@@ -4,7 +4,6 @@
 total=$(/usr/bin/free --mega | awk 'NR==2{print $2}')
 used=$(/usr/bin/free --mega | awk 'NR==2{print $3}')
 free=$(/usr/bin/free --mega | awk 'NR==2{print $4}')
-shared=$(/usr/bin/free --mega | awk 'NR==2{print $5}')
 cached=$(/usr/bin/free --mega | awk 'NR==2{print $6}')
 available=$(/usr/bin/free --mega | awk 'NR==2{print $7}')
 one=$(/usr/bin/free --mega | awk 'NR==2{print 100*($5/$3)}')

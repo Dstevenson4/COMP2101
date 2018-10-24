@@ -10,40 +10,26 @@ while [ $# -gt 0 ]; do
       exit 0
       ;;
     -c|--count)
-      count="$2"
-      shift
-      if [ -z "$count" ]; then
-        echo "you must provide a number between 1 and 9 after the -c|--count telling the program how many dice you want to roll." >&2
-        exit 2
-      fi
-      if [ "$count" -lt 1 ]; then
-        echo "The count must be a number between 1 and 9." >&2
-        exit 2
-      fi
-      if [ "$count" -gt 9 ]; then
-        echo "The count must be a number between 1 and 9." >&2
-        exit 2
+      if [ "$2" -gt 0 ] && [ "$2" -lt 10 ]; then
+        count="$2"
+        shift
+      else
+        echo "The count needs to be a number between 1 and 9." >&2
+        exit 1
       fi
       ;;
     -s|--sides)
-      sides="$2"
-      shift
-      if [ -z "$sides" ]; then
-        echo "you must provide a number between 4 and 20 after the -s|--sides telling the program how many sides the dice should have." >&2
-        exit 3
-      fi
-      if [ "$sides" -lt 4 ]; then
-        echo "The number of sides must be between 4 and 20." >&2
-        exit 3
-      fi
-      if [ "$sides" -gt 20 ]; then
-        echo "The number of sides must be between 4 and 20." >&2
-        exit 3
+      if [ "$2" -gt 3 ] && [ "$2" -lt 21 ]; then
+        sides="$2"
+        shift
+      else
+        echo "The sides needs to be a number between 4 and 20." >&2
+        exit 2
       fi
       ;;
     *)
       echo "I didn't understand '$1'" >&2
-      exit 1
+      exit 3
       ;;
   esac
   shift
