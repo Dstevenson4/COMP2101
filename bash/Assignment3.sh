@@ -8,7 +8,7 @@ while [ $# -gt 0 ]; do
       exit 0
       ;;
     *)
-      echo "I didn't understand '$1'"
+      echo "I didn't understand '$1'" >&2
       exit 1
       ;;
   esac
@@ -19,9 +19,21 @@ read -p "Enter up to 5 command names (commands must be separated by spaces):" co
 comarray=($com1 $com2 $com3 $com4 $com5)
 
 if [ -z $com1 ]; then
-  echo "Enter at least one command name"
+  echo "Enter at least one command name" >&2
+  exit 0
 fi
 
 for element in "${comarray[@]}"; do
-  dpkg -S $element || echo "I could not find that command."
+  exist=$(which $element)
+  owner=$(ls -ld $exist | awk '{print $3}')
+  if [ -n "$exist" ]; then
+    package=$(dpkg -S $exist)
+    if [ -n "$package" ]; then
+      echo "$element - $package"
+    else
+      echo "This command doesn't come from a software package it comes from $exist and is owned by $owner." >&2
+    fi
+  else
+    echo "Command '$element' could not be found" >&2
+  fi
 done
